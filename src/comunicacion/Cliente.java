@@ -38,7 +38,7 @@ import modelo.Carton;
 import modelo.Jugador;
 
 /**
- *
+ * Esta clase crea un cliente del bingo
  * @author luisf
  */
 public class Cliente {
@@ -61,6 +61,10 @@ public class Cliente {
             System.out.println("");
         }
     }
+     /**
+     * Inicia la ventana del cliente y crea una tabla con el cartón asignado
+     * @param cartoncito Es el cartón que va a desplegar en pantalla
+     */
     public static void iniciarVentana(String[][] cartoncito){
         String[] letras = {"B","I","N","G","O"};
         jTable=new JTable(cartoncito,letras);
@@ -76,6 +80,9 @@ public class Cliente {
         ventana.setVisible(true);
         
     }
+    /**
+     * Actualiza la tabla con el cartón asignado
+     */
     public static void actualizarTabla(){
         TableModel modeloTabla = jTable.getModel();
         
@@ -88,14 +95,19 @@ public class Cliente {
         jTable.setModel(modeloTabla);
         
     }
+    /**
+     * Inicia el programa
+     * @param args 
+     */
     public static void main(String[] args) {
         try {
             entradaTexto = new Scanner(System.in);
+            //Se conecta al servidor
             sfd = new Socket("localhost", 8000);
             EntradaSocket = new DataInputStream(new BufferedInputStream(sfd.getInputStream()));
             SalidaSocket = new DataOutputStream(new BufferedOutputStream(sfd.getOutputStream()));
             String nombre = JOptionPane.showInputDialog("Digite su nombre");
-            
+            //Envía el nombre del jugador al servidor
             SalidaSocket.writeUTF(nombre);
             SalidaSocket.flush();
             jugador = new Jugador(nombre);
@@ -115,9 +127,11 @@ public class Cliente {
                 }
             }
             jugador.getCarton().setCarton(cartonParseado);
+            //Inicia la ventana del cliente
             iniciarVentana(cartonString);
             imprimirBingo();
             while(true){
+                //Verifica cada número enviado por el servidor
                 jugador.getCarton().verificarNumero(Integer.valueOf(EntradaSocket.readUTF()));
                 System.out.println("");
                 System.out.println("");
