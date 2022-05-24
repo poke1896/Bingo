@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
-
 /**
- *
+ * Esta clase genera jugadores con su respectivo carton y nombre
  * @author luisf
  */
 public class Jugador {
@@ -28,7 +27,10 @@ public class Jugador {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    /**
+     * Crea el jugador y su cartón
+     * @param nombre nombre del jugador
+     */
     public Jugador(String nombre) {
         this.nombre = nombre;
         carton = new Carton();
