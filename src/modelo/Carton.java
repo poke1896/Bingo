@@ -8,13 +8,20 @@ package modelo;
 import java.util.Random;
 
 /**
- *
+ * Esta clase genera cartones de bingo en forma de matriz 5x5 de enteros.
+ * 
  * @author luisf
+ * @version 24/05/2022
  */
 public class Carton {
 
     private int[][] carton;
-    
+    /**
+     * Este método verifica si el entero numero está en el cartón y si está cambia ese número
+     * por un 0
+     * @param numero Es el número a verificar
+     * @return true si el número estaba en el cartón y false si no.
+     */
     public boolean verificarNumero(int numero){
         for(int i = 0; i < 5; i ++){
             for(int j = 0; j < 5; j++){
@@ -26,6 +33,10 @@ public class Carton {
         }
         return false;
     }
+    /**
+     * Este método verifica si ya salieron todos los números del cartón
+     * @return true si ya salieron todos los números, false si no
+     */
     public boolean verificarPremioCartonLleno(){
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
@@ -36,6 +47,10 @@ public class Carton {
         }
         return true;
     }
+    /**
+     * Este método verifica si en el cartón ya salieron todos los números para formar una L
+     * @return true si forma una L, false si no
+     */
     public boolean verificarPremioEnL(){
         
         if(carton[1][0] != 0){
@@ -58,7 +73,9 @@ public class Carton {
         return true;
     }
     
-
+    /**
+     * Crea cartones
+     */
     public Carton() {
         carton = new int[5][5];
         int numero = 0;
@@ -123,7 +140,12 @@ public class Carton {
     public void setCarton(int[][] carton) {
         this.carton = carton;
     }
-    
+    /**
+     * Verifica si un número pertenece a un vector
+     * @param numero Número por verificar
+     * @param vector Vector sobre el cual se va a trabajar
+     * @return true si el número pertenece al vector, false si no
+     */
     private boolean verificarIgual(int numero, int[] vector) {
         for (int i = 0; i < vector.length; i++) {
             if (numero == vector[i]) {
