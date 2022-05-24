@@ -39,7 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- *
+ * Esta clase crea un servidor para el bingo
  * @author luisf
  */
 public class Servidor extends JFrame {
@@ -52,7 +52,7 @@ public class Servidor extends JFrame {
     private JButton simulationButton;
     private static JTextArea numeros;
     private static JTextArea nombresJugadores;
-
+    //Crea un servidor e instancia una ventana
     public Servidor() {
         JFrame frame = new JFrame("Bingo Juego");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +66,10 @@ public class Servidor extends JFrame {
         System.out.println(frame.getSize());
 
     }
-
+    /**
+     * Crea un panel para agregar un label donde diga los números jugados 
+     * @return panel el panel con los números
+     */
     private JPanel createCalledBoardPanel() {
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -237,7 +240,10 @@ public class Servidor extends JFrame {
 
         return panel;
     }
-
+    /**
+     * Inicio del servidor
+     * @param args 
+     */
     public static void main(String[] args) {
         banderaInicio = false;
 
@@ -248,6 +254,7 @@ public class Servidor extends JFrame {
         sockets = new ArrayList();
         ServerSocket sfd = null;
         try {
+            //Crea el servidor usando el puerto 8000
             sfd = new ServerSocket(8000);
             System.out.println("Servidor iniciado");
         } catch (IOException ioe) {
@@ -279,7 +286,7 @@ public class Servidor extends JFrame {
                 FlujoEscritura.flush();
                 
                 
-                
+                //Añade el jugador y sus datos a la memoria
                 jugadores.add(actual);
                 nombresJugadores.append(nombre + "\n");
                 sockets.add(nsfd);
@@ -299,6 +306,7 @@ public class Servidor extends JFrame {
             boolean bandera = true;
             int salido;
             while (bandera) {
+                //Envía números aleatorios para el juego a cada cliente
                 salido = random.nextInt(75 - 1 + 1) + 1;
                 while (numerosSalidos.contains(salido)) {
                     salido = random.nextInt(75 - 1 + 1) + 1;
